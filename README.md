@@ -76,4 +76,3 @@ useEffect(() => {
 
 - Add React Router, and add the functionality to click an episode and navigate to an episode page.
 
-do it
