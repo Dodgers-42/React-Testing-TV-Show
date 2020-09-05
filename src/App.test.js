@@ -1,8 +1,8 @@
 import React from 'react';
 import { render, waitFor, fireEvent, getByText, findByText } from '@testing-library/react';
-import { fetchShow as mockFetchShow } from './api/fetchShow';
-import App from './App';
-
+import { fetchShow as mockFetchShow } from '../api/fetchShow';
+import App from '../App';
+import Dropdown from "react-dropdown";
 
 jest.mock("./api/fetchShow");
 
@@ -24,7 +24,15 @@ test("App should recieve Data from api", async () => {
     
     });
 })
-
+test('renders from api', async () => {
+    mockFetchShow.mockResolvedValueOnce(shows);
+    const {findByText} = render(<App />);
+    const selectSeasonButton = await findByText(/Select a season/i);
+    fireEvent.click(selectSeasonButton);
+    const selectSeasonButton = await findByText(/Select 1/i);
+    expect('Season 1').toBeVisible;
+    fireEvent.click(/Season 1/i);
+});
 // test("for the loading message", async () => {
 //     mockFetchShow.mockResolvedValueOnce(shows);
 
