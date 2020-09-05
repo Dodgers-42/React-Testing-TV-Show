@@ -8,12 +8,9 @@ jest.mock("./api/fetchShow");
 
 test("App should recieve Data from api", async () => {
     mockFetchShow.mockResolvedValueOnce(shows);
-
     const { getByText, queryByText } = render(<App />);
-
     expect(fetchShow).toHaveBeenCalledTimes(1);
-
-
+    
     mockFetchShow.mockResolvedValueOnce(data);
     const {findByText} = render(<App />);
 
@@ -24,23 +21,23 @@ test("App should recieve Data from api", async () => {
     
     });
 })
-test('renders from api', async () => {
-    mockFetchShow.mockResolvedValueOnce(shows);
-    const {findByText} = render(<App />);
-    const selectSeasonButton = await findByText(/Select a season/i);
-    fireEvent.click(selectSeasonButton);
-    const selectSeasonButton = await findByText(/Select 1/i);
-    expect('Season 1').toBeVisible;
-    fireEvent.click(/Season 1/i);
-});
-// test("for the loading message", async () => {
+// test('renders from api', async () => {
 //     mockFetchShow.mockResolvedValueOnce(shows);
+//     const {findByText} = render(<App />);
+//     const selectSeasonButton = await findByText(/Select a season/i);
+//     fireEvent.click(selectSeasonButton);
+//     const selectSeasonButton = await findByText(/Select 1/i);
+//     expect('Season 1').toBeVisible;
+//     fireEvent.click(/Season 1/i);
+// });
+test("for the loading message", async () => {
+    mockFetchShow.mockResolvedValueOnce(shows);
 
-//     expect(mockFetchShow).toHaveBeenCalledTimes(1);
+    expect(mockFetchShow).toHaveBeenCalledTimes(1);
 
-//     const { getByText } = render(<App />);
-//     await waitFor(() => expect(getByText("Fetching data... ")).toBeInTheDocument());
-// })
+    const { getByText } = render(<App />);
+    await waitFor(() => expect(getByText("Fetching data... ")).toBeInTheDocument());
+})
 
 const shows = {
     data: [
