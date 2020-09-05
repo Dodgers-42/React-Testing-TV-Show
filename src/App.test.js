@@ -1,16 +1,21 @@
 import React from 'react';
-import { render, waitFor } from '@testing-library/react';
-import { fetchShow as mockFetchShow } from '.api/fetchShow';
+import { render, waitFor, fireEvent, getByText, findByText } from '@testing-library/react';
+import { fetchShow as mockFetchShow } from './api/fetchShow';
 import App from './App';
+
 
 jest.mock("./api/fetchShow");
 
 test("App should recieve Data from api", async () => {
     mockFetchShow.mockResolvedValueOnce(shows);
 
-    const { getbyText, queryByText } = render(<App />);
+    const { getByText, queryByText } = render(<App />);
 
     expect(fetchShow).toHaveBeenCalledTimes(1);
+
+
+    mockFetchShow.mockResolvedValueOnce(data);
+    const {findByText} = render(<App />);
 
     //Api seccess, shows the data recieved
     await waitFor(() => {
@@ -19,6 +24,15 @@ test("App should recieve Data from api", async () => {
     
     });
 })
+
+// test("for the loading message", async () => {
+//     mockFetchShow.mockResolvedValueOnce(shows);
+
+//     expect(mockFetchShow).toHaveBeenCalledTimes(1);
+
+//     const { getByText } = render(<App />);
+//     await waitFor(() => expect(getByText("Fetching data... ")).toBeInTheDocument());
+// })
 
 const shows = {
     data: [

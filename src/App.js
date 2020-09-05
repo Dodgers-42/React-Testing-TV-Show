@@ -8,7 +8,7 @@ import { formatSeasons } from "./utils/formatSeasons";
 import Episodes from "./components/Episodes";
 import "./styles.css";
 
-import usefetchShow from "../api/usefetchShow.js";
+import fetchShow  from "./api/fetchShow";
 
 export default function App() {
  const [show, setShow] = useState(null);
@@ -21,7 +21,7 @@ export default function App() {
 //    show: null,
 //    seasons: "",
 //    selectedSeason: "",
-//    episodes: [seasons[selectedSeason]] || []
+//    episodes: [seasons[selectedSeason]] || []k
 //  };
 
 
@@ -29,7 +29,7 @@ export default function App() {
 // }
   useEffect(() => {
     fetchShow()    
-        .then(res => {
+        .then((res) => {
           setShow(res.data);
           setSeasons(formatSeasons(res.data._embedded.episodes));
         });
